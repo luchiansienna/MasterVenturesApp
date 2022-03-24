@@ -10,6 +10,7 @@ import NomineeCard from '../components/NomineeCard'
 import Button from '../components/Button'
 import { Footer } from '../components/Footer'
 import HtmlHead from '../components/HtmlHead'
+import LoadingSpinner from '../components/LoadingSpinner'
 
 const Home: NextPage = () => {
   const [ballot, setBallot] = useState<Category[]>()
@@ -19,12 +20,11 @@ const Home: NextPage = () => {
   const [modalIsVisible, setModalIsVisible] = useState<Boolean>()
   const fetchBallot = async () => {
     try {
+      setBallot(undefined)
       const response = await fetch('/api/ballots')
       const data = await response.json()
       setBallot(data.items)
-    } catch (error) {
-
-    }
+    } catch (error) {}
   }
 
   useEffect(() => {
@@ -43,35 +43,41 @@ const Home: NextPage = () => {
       <HtmlHead />
       <Header>AWARDS 2021</Header>
       <main className={styles.main}>
-        {ballot?.map((category: Category) => (
-          <CategoryCard
-            key={category.id}
-            item={category}
-            selectNominee={selectNominee}
-            selectedNominees={selectedNominees}
-          />
-        ))}
-        <Modal
-          handleClose={() => setModalIsVisible(false)}
-          show={modalIsVisible}
-        >
-          <h2>Your awards selection</h2>
-          <div className={styles.nomineeContainer}>
-            {selectedNominees.map(({ nominee, category }) => (
-              <NomineeCard
-                showCategory
-                category={category}
-                key={nominee.id}
-                item={nominee}
+        {ballot ? (
+          <div>
+            {ballot.map((category: Category) => (
+              <CategoryCard
+                key={category.id}
+                item={category}
+                selectNominee={selectNominee}
+                selectedNominees={selectedNominees}
               />
             ))}
+            <Modal
+              handleClose={() => setModalIsVisible(false)}
+              show={modalIsVisible}
+            >
+              <h2>Your awards selection</h2>
+              <div className={styles.nomineeContainer}>
+                {selectedNominees.map(({ nominee, category }) => (
+                  <NomineeCard
+                    showCategory
+                    category={category}
+                    key={nominee.id}
+                    item={nominee}
+                  />
+                ))}
+              </div>
+            </Modal>
+            <Footer>
+              <Button isSubmitButton onClick={() => setModalIsVisible(true)}>
+                Submit
+              </Button>
+            </Footer>
           </div>
-        </Modal>
-        <Footer>
-          <Button isSubmitButton onClick={() => setModalIsVisible(true)}>
-            Submit
-          </Button>
-        </Footer>
+        ) : (
+          <LoadingSpinner />
+        )}
       </main>
     </div>
   )

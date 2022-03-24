@@ -11,12 +11,5 @@ describe('Home', () => {
     const { getByText } = render(<Header />);
     
     expect(getByText("AWARDS 2021")).toBeInTheDocument()
-  }),
-  it('Index page renders submit button', () => {
-    render(<Index />)
-
-    const { getByText } = render(<Button />);
-    
-    expect(getByText("Submit")).toBeInTheDocument()
   })
 })
