@@ -2,10 +2,7 @@ import type { NextPage } from 'next'
 
 import styles from '../styles/Home.module.css'
 import Header from '../components/Header'
-import {
-  useEffect,
-  useState,
-} from 'react'
+import { useEffect, useState } from 'react'
 import CategoryCard from '../components/CategoryCard'
 import { Category, Nominee, NomineePerCategory } from './types'
 import { Modal } from '../components/Modal'
@@ -21,11 +18,15 @@ const Home: NextPage = () => {
   >([])
   const [modalIsVisible, setModalIsVisible] = useState<Boolean>()
   const fetchBallot = async () => {
-    const response = await fetch('/api/ballots')
-    const data = await response.json()
-    setBallot(data.items)
+    try {
+      const response = await fetch('/api/ballots')
+      const data = await response.json()
+      setBallot(data.items)
+    } catch (error) {
+
+    }
   }
-  
+
   useEffect(() => {
     fetchBallot()
   }, [])
@@ -37,17 +38,9 @@ const Home: NextPage = () => {
     ])
   }
 
-  const submitSelectedNominees = () => {
-    setModalIsVisible(true)
-  }
-
-  const hideModal = () => {
-    setModalIsVisible(false)
-  }
-
   return (
     <div className={styles.container}>
-      <HtmlHead/>
+      <HtmlHead />
       <Header>AWARDS 2021</Header>
       <main className={styles.main}>
         {ballot?.map((category: Category) => (
@@ -58,7 +51,10 @@ const Home: NextPage = () => {
             selectedNominees={selectedNominees}
           />
         ))}
-        <Modal handleClose={hideModal} show={modalIsVisible}>
+        <Modal
+          handleClose={() => setModalIsVisible(false)}
+          show={modalIsVisible}
+        >
           <h2>Your awards selection</h2>
           <div className={styles.nomineeContainer}>
             {selectedNominees.map(({ nominee, category }) => (
@@ -72,7 +68,7 @@ const Home: NextPage = () => {
           </div>
         </Modal>
         <Footer>
-          <Button isSubmitButton onClick={submitSelectedNominees}>
+          <Button isSubmitButton onClick={() => setModalIsVisible(true)}>
             Submit
           </Button>
         </Footer>
