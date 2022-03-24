@@ -106,3 +106,33 @@ curl -X GET \
 
 > **Good luck and if you have any questions, please reach out to us!**
 
+
+
+
+<section>
+  <p align="center">
+    <b>
+    TEST-INSTRUCTIONS
+    </b><br>
+  </p>
+  <p>This app is a typescript react js web app with next js</p>
+
+  <p>Type 'yarn test' or 'npm test' in the console and hit enter to run the tests associated</p>
+
+  <p>Type 'yarn dev' or 'npm dev' to run the web server to test this application in a browser</p>
+
+  <p>Main page resides at ./pages/index.tsx</p>
+
+  <p>Components are present in the ./components folder</p>
+
+  <p>There is Category Card which is the panel that holds the Nominee cards</p>
+
+  <p>There are also CSS breakpoints in the NomineeCard.module.css that depending on the screen size decides how many cards will be shown per row </p>
+  
+  <p>./styles folder contains all the css modules of the components</p>
+
+  <p>Some unit tests are built in ./components/__tests__/ folder</p>
+
+  
+</section>
+

@@ -2,13 +2,23 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: Roboto;
+  background-color: #0d2436;
+  color: #ffffff;
 }
 
 a {
   color: inherit;
   text-decoration: none;
+}
+
+span:hover,
+p:hover,
+h1:hover,
+h2:hover,
+h3:hover,
+h4:hover {
+  color: #cccccc;
 }
 
 * {
