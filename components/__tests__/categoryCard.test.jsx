@@ -7,7 +7,7 @@ import { category2, selectedNominees, nominee, nominee2, nominee3, nominee4 } fr
 // unmount and cleanup DOM after the test is finished.
 afterEach(cleanup)
 
-it('NomineeCard calls select function when select button clicked', () => {
+it('Second NomineeCard from Category panel gets selected when its select button clicked', () => {
   const selectNominee = { selectNominee: () => {} }
   const mock = jest.spyOn(selectNominee, 'selectNominee').mockResolvedValue()
   const categoryCard = (
