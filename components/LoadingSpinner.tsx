@@ -4,7 +4,7 @@ import { Oval } from 'react-loader-spinner'
 
 function LoadingSpinner() {
   return (
-    <Oval color="white" height={80} width={80} />
+    <Oval color="white" height={80} width={80}  />
   )
 }
 

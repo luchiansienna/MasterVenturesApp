@@ -18,13 +18,18 @@ const Home: NextPage = () => {
     NomineePerCategory[]
   >([])
   const [modalIsVisible, setModalIsVisible] = useState<Boolean>()
+  const [isLoading, setIsLoading] = useState<Boolean>(false)
   const fetchBallot = async () => {
     try {
       setBallot(undefined)
+      setIsLoading(true)
       const response = await fetch('/api/ballots')
       const data = await response.json()
       setBallot(data.items)
-    } catch (error) {}
+      setIsLoading(false)
+    } catch (error) {
+      setIsLoading(false)
+    }
   }
 
   useEffect(() => {
@@ -43,9 +48,9 @@ const Home: NextPage = () => {
       <HtmlHead />
       <Header>AWARDS 2021</Header>
       <main className={styles.main}>
-        {ballot ? (
+        {!isLoading ? (
           <div>
-            {ballot.map((category: Category) => (
+            {ballot?.map((category: Category) => (
               <CategoryCard
                 key={category.id}
                 item={category}
